@@ -2,7 +2,7 @@ return {
   "echasnovski/mini.pairs",
   event = "VeryLazy",
   opts = {
-    modes = { insert = false, command = false, terminal = false },
+    modes = { insert = true, command = false, terminal = false },
     -- skip autopair when next character is one of these
     --skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
     ---- skip autopair when the cursor is inside these treesitter nodes
@@ -12,6 +12,20 @@ return {
     --skip_unbalanced = true,
     ---- better deal with markdown code blocks
     --markdown = true,
+    mappings = {
+    -- ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\].' },
+    -- ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\].' },
+    ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\].' },
+
+    -- [')'] = { action = 'close', pair = '()', neigh_pattern = '[^\\].' },
+    -- [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
+    ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
+
+    -- ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^\\].', register = { cr = false } },
+    -- ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%a\\].', register = { cr = false } },
+    -- ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\].', register = { cr = false } },
+  },
+
   },
   config = function(_, opts)
     LazyVim.mini.pairs(opts)

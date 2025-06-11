@@ -7,8 +7,41 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
-  pattern = { "*" },
-  command = "silent! wall",
-  nested = true,
-})
+-- Autosave with fix for the harpoon menu (without it its flashing)
+
+
+-- vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+--   pattern = { "*" },
+--         callback = function()
+--             if vim.bo.ft == "harpoon" then
+--                 return
+--             end
+--             vim.cmd("silent! wall")
+--         end,
+--         nested = true,
+-- })
+-- vim.api.nvim_create_autocmd("InsertCharPre", {
+--   pattern = "*",
+--   callback = function()
+--     if vim.fn.getline('.'):sub(vim.fn.col('.')-1, vim.fn.col('.')-1) == '(' then
+--       if require('lsp_signature').toggle_float_win then
+--         vim.schedule(function()
+--           require('lsp_signature').toggle_float_win()
+--         end)
+--       end
+--     end
+--   end
+-- })
+
+-- -- In your lualine configuration, add a component to lualine_c (or another section)
+-- {
+--   function()
+--     return vim.b.lsp_signature or ""
+--   end,
+--   cond = function()
+--     return vim.b.lsp_signature and vim.b.lsp_signature ~= ""
+--   end,
+--   color = { fg = "#a3be8c" },  -- Customize the color as desired
+--   separator = " ",
+-- },
+-- vim.opt.winbar = [[%{%v:lua.require'lsp_signature'.status_line(80).label%}]]
